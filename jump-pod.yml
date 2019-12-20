@@ -1,21 +1,11 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: jump 
+  name: jumpy
 spec:
   containers:
-  - name: jump
-    image: alpine
+  - name: main
+    image: maliksalman/jump
     command:
       - sleep
-      - 24h
-    lifecycle:
-      postStart:
-        exec:
-          command:
-          - sh
-          - -c
-          - |
-            apk update && apk add bash curl jq bind-tools
-            echo 'while true; do sleep 1; curl -s $1 | jq . -c; done' > /usr/local/bin/curlloop
-            chmod 755 /usr/local/bin/curlloop
+      - 168h
