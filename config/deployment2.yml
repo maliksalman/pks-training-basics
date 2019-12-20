@@ -7,7 +7,7 @@ spec:
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: nginx
+      tier: web
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -15,9 +15,8 @@ spec:
       maxUnavailable: 0
   template:
     metadata:
-      name: nginx
       labels:
-        app: nginx
+        tier: web
     spec:
       containers:
         - name: main

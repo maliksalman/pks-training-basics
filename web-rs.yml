@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: nginx
+  name: web-v2
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: nginx
+      tier: web
   template:
     metadata:
       labels:
-        app: nginx
+        tier: web
     spec:
       containers:
       - name: main
