@@ -3,7 +3,7 @@ kind: ReplicaSet
 metadata:
   name: web-v2
 spec:
-  replicas: 2
+  replicas: 5
   selector:
     matchLabels:
       tier: web
@@ -18,6 +18,10 @@ spec:
         ports:
         - containerPort: 80
           protocol: TCP
+        resources:
+          limits:
+            cpu: 50m
+            memory: 32Mi
         env:
           - name: APP_VER
             value: "2.0"

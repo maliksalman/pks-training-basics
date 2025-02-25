@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: boot
+  template:
+    metadata:
+      labels:
+        tier: boot
+    spec:
+      containers:
+      - name: main
+        image: dockerdemo-native:1.0
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: externaldb
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:mysql://db:3306/testdb
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: boot
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    tier: boot

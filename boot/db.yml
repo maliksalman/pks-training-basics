@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: db
+  labels:
+    tier: db
+spec:
+  containers:
+  - name: main
+    image: mysql:8
+    env:
+    - name: MYSQL_DATABASE
+      value: testdb
+    - name: MYSQL_PASSWORD
+      value: cantguessthis
+    - name: MYSQL_ROOT_PASSWORD
+      value: veryverysecret
+    - name: MYSQL_USER
+      value: whoami
+    ports:
+    - containerPort: 3306
+    resources:
+      limits:
+        cpu: 256m
+        memory: 512Mi
+    volumeMounts:
+    - name: db-storage
+      mountPath: /var/lib/mysql
+  volumes:
+  - name: db-storage
+    emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+spec:
+  type: ClusterIP
+  ports:
+  - port: 3306
+    targetPort: 3306
+  selector:
+    tier: db

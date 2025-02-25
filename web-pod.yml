@@ -11,6 +11,13 @@ spec:
     ports:
     - containerPort: 80
       protocol: TCP
+    resources:
+      limits:
+        cpu: 50m
+        memory: 32Mi
+      requests:
+        cpu: 25m
+        memory: 16Mi
     env:
       - name: APP_VER
         value: "1.0"
